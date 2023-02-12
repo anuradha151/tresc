@@ -12,19 +12,19 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users")
+@RequestMapping("/users")
 public class UsersController {
 
     private final UsersService usersService;
 
     @PreAuthorize(value = "hasRole('ROLE_USER')")
-    @GetMapping()
+    @GetMapping("/v1")
     public List<Users> GetUsers() {
         return usersService.GetAllUsers();
     }
 
     @PreAuthorize(value = "hasRole('ROLE_USER')")
-    @PostMapping("")
+    @PostMapping("/v1")
     public Users GetUsers(@RequestBody UsersRequestDto user) {
         return usersService.AddUser(user);
     }

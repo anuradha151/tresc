@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class ContentRequestDto {
 
-    private int id;
     private String title;
     private String summary;
     private String content;

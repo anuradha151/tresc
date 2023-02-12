@@ -12,6 +12,9 @@ spring:
     show-sql: false
     open-in-view: false
 
+server:
+  servlet:
+    context-path: /api/tresc
 jwt:
   secret: 1asVwb95XX@XTuhgeIhk02oTFMG$fNF9SI67
   get:

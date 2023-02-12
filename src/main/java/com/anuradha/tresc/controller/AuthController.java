@@ -23,7 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -35,7 +35,7 @@ public class AuthController {
 
     private final JwtUtils jwtUtils;
 
-    @PostMapping("/authenticate")
+    @PostMapping("/authenticate/v1")
     public ResponseEntity<AuthTokenDto> authenticate(@RequestBody AuthRequestDto request, HttpServletResponse response) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                         request.getEmail(), request.getPassword(), new ArrayList<>()));
@@ -45,7 +45,7 @@ public class AuthController {
         return ResponseEntity.ok(AuthTokenDto.builder().accessToken(jwt).build());
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register/v1")
     public ResponseEntity<UserSecurity> register(@RequestBody UsersRequestDto user) throws Exception {
         return ResponseEntity.ok(authService.AddUser(user).map(UserSecurity::new).orElseThrow(() -> new Exception("Unknown")));
     }
