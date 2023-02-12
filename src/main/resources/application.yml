@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: tresc-backend
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DATABASE_USERNAME} #root
+    url: ${DATABASE_URL} #jdbc:mysql://localhost:3306/sla-cms
+    password: ${DATABASE_PASSWORD} #MySql@123
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO:update} #update/none
+    show-sql: false
+    open-in-view: false
+
+jwt:
+  secret: 1asVwb95XX@XTuhgeIhk02oTFMG$fNF9SI67
+  get:
+    token:
+      uri: /authenticate
