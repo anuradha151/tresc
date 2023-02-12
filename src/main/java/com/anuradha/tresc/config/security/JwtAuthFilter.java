@@ -3,7 +3,6 @@ package com.anuradha.tresc.config.security;
 import com.anuradha.tresc.service.impl.JpaUserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -28,30 +27,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        final String userEmail;
-        String jwtToken = null;
-
 
         if (authHeader == null || !authHeader.startsWith("Bearer")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-//        if (request.getCookies() != null) {
-//            for (Cookie cookie : request.getCookies()) {
-//                if (cookie.getName().equals("jwt")) {
-//                    jwtToken = cookie.getValue();
-////                System.out.println(cookie.getValue());
-//                }
-//            }
-//        }
-        if (jwtToken == null) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-//        jwtToken = authHeader.substring(7);
-        userEmail = jwtUtils.extractUsername(jwtToken);
+        String jwtToken = authHeader.substring(7);
+        String userEmail = jwtUtils.extractUsername(jwtToken);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = jpaUserDetailsServiceImpl.loadUserByUsername(userEmail);
             if (jwtUtils.validateToken(jwtToken, userDetails)) {

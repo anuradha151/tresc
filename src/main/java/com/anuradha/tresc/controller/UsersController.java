@@ -17,13 +17,13 @@ public class UsersController {
 
     private final UsersService usersService;
 
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
-    @GetMapping("")
+    @PreAuthorize(value = "hasRole('ROLE_USER')")
+    @GetMapping()
     public List<Users> GetUsers() {
         return usersService.GetAllUsers();
     }
 
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+    @PreAuthorize(value = "hasRole('ROLE_USER')")
     @PostMapping("")
     public Users GetUsers(@RequestBody UsersRequestDto user) {
         return usersService.AddUser(user);
