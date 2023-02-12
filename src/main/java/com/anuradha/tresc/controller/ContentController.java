@@ -1,5 +1,6 @@
 package com.anuradha.tresc.controller;
 
+import com.anuradha.tresc.dto.CommentRequestDto;
 import com.anuradha.tresc.dto.ContentRequestDto;
 import com.anuradha.tresc.dto.ResponseDto;
 import com.anuradha.tresc.service.ContentService;
@@ -24,6 +25,14 @@ public class ContentController {
         contentService.save(dto);
         return ResponseEntity.ok(ResponseDto.builder().success(true).message("Content added successfully").build());
     }
+
+    @PreAuthorize(value = "hasRole('ROLE_USER')")
+    @PostMapping("/comment/v1")
+    public ResponseEntity<ResponseDto> comment(@RequestBody CommentRequestDto dto){
+        contentService.comment(dto);
+        return ResponseEntity.ok(ResponseDto.builder().success(true).message("Comment added successfully").build());
+    }
+
 
 
 }
