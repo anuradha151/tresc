@@ -1,8 +1,8 @@
-package com.anuradha.tresc.users.controller;
+package com.anuradha.tresc.controller;
 
-import com.anuradha.tresc.users.Requests.UsersRequest;
-import com.anuradha.tresc.users.model.Users;
-import com.anuradha.tresc.users.service.UsersService;
+import com.anuradha.tresc.dto.UsersRequestDto;
+import com.anuradha.tresc.model.Users;
+import com.anuradha.tresc.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ public class UsersController {
 
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PostMapping("")
-    public Users GetUsers(@RequestBody UsersRequest user) {
+    public Users GetUsers(@RequestBody UsersRequestDto user) {
         return usersService.AddUser(user);
     }
 

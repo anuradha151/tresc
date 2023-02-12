@@ -1,6 +1,6 @@
-package com.anuradha.tresc.users.repository;
+package com.anuradha.tresc.repository;
 
-import com.anuradha.tresc.users.model.Users;
+import com.anuradha.tresc.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.anuradha.tresc.users.Requests;
+package com.anuradha.tresc.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,10 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UsersRequest {
-    private String first_name;
-    private String last_name;
+public class AuthRequestDto {
     private String email;
     private String password;
-    private String roles;
 }

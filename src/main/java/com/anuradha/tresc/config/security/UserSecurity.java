@@ -1,6 +1,6 @@
-package com.anuradha.tresc.UserSecurity.model;
+package com.anuradha.tresc.config.security;
 
-import com.anuradha.tresc.users.model.Users;
+import com.anuradha.tresc.model.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

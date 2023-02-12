@@ -1,6 +1,6 @@
-package com.anuradha.tresc.config;
+package com.anuradha.tresc.config.security;
 
-import com.anuradha.tresc.UserSecurity.dao.JpaUserDetailsService;
+import com.anuradha.tresc.service.impl.JpaUserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
 
-    private final JpaUserDetailsService jpaUserDetailsService;
+    private final JpaUserDetailsServiceImpl jpaUserDetailsServiceImpl;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -38,7 +38,7 @@ public class SecurityConfig {
                         .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .userDetailsService(jpaUserDetailsService)
+                .userDetailsService(jpaUserDetailsServiceImpl)
                 .build();
     }
 

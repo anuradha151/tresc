@@ -1,4 +1,4 @@
-package com.anuradha.tresc.users.model;
+package com.anuradha.tresc.model;
 
 import jakarta.persistence.*;
 import lombok.*;

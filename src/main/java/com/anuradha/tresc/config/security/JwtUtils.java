@@ -1,4 +1,4 @@
-package com.anuradha.tresc.config;
+package com.anuradha.tresc.config.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

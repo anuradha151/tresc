@@ -1,12 +1,12 @@
-package com.anuradha.tresc.auth.controller;
+package com.anuradha.tresc.controller;
 
-import com.anuradha.tresc.UserSecurity.dao.JpaUserDetailsService;
-import com.anuradha.tresc.UserSecurity.model.UserSecurity;
-import com.anuradha.tresc.auth.request.AuthenticationRequest;
-import com.anuradha.tresc.auth.service.AuthService;
-import com.anuradha.tresc.config.JwtUtils;
+import com.anuradha.tresc.service.impl.JpaUserDetailsServiceImpl;
+import com.anuradha.tresc.config.security.UserSecurity;
+import com.anuradha.tresc.dto.AuthRequestDto;
+import com.anuradha.tresc.service.AuthService;
+import com.anuradha.tresc.config.security.JwtUtils;
 import com.anuradha.tresc.dto.AuthTokenDto;
-import com.anuradha.tresc.users.Requests.UsersRequest;
+import com.anuradha.tresc.dto.UsersRequestDto;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,24 +29,24 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
 
-    private final JpaUserDetailsService jpaUserDetailsService;
+    private final JpaUserDetailsServiceImpl jpaUserDetailsServiceImpl;
 
     private final AuthService authService;
 
     private final JwtUtils jwtUtils;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthTokenDto> authenticate(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
+    public ResponseEntity<AuthTokenDto> authenticate(@RequestBody AuthRequestDto request, HttpServletResponse response) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                         request.getEmail(), request.getPassword(), new ArrayList<>()));
-        final UserDetails user = jpaUserDetailsService.loadUserByUsername(request.getEmail());
+        final UserDetails user = jpaUserDetailsServiceImpl.loadUserByUsername(request.getEmail());
         if (user == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
         String jwt = jwtUtils.generateToken(user);
         return ResponseEntity.ok(AuthTokenDto.builder().accessToken(jwt).build());
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserSecurity> register(@RequestBody UsersRequest user) throws Exception {
+    public ResponseEntity<UserSecurity> register(@RequestBody UsersRequestDto user) throws Exception {
         return ResponseEntity.ok(authService.AddUser(user).map(UserSecurity::new).orElseThrow(() -> new Exception("Unknown")));
     }
 

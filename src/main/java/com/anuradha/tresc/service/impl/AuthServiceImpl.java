@@ -1,8 +1,9 @@
-package com.anuradha.tresc.auth.service;
+package com.anuradha.tresc.service.impl;
 
-import com.anuradha.tresc.users.Requests.UsersRequest;
-import com.anuradha.tresc.users.model.Users;
-import com.anuradha.tresc.users.repository.UsersRepository;
+import com.anuradha.tresc.dto.UsersRequestDto;
+import com.anuradha.tresc.model.Users;
+import com.anuradha.tresc.repository.UsersRepository;
+import com.anuradha.tresc.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class AuthServiceImpl implements AuthService {
     private final UsersRepository usersRepository;
 
-    public Optional<Users> AddUser(UsersRequest user) {
+    public Optional<Users> AddUser(UsersRequestDto user) {
         Users newUser = new Users();
         newUser.setFirst_name(user.getFirst_name());
         newUser.setLast_name(user.getLast_name());
